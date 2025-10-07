@@ -4,24 +4,147 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Impressum</title>
-  <link rel="stylesheet" href="index.html">
   <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; background:#111; color:#fff; }
-    a { color: #ec9422; text-decoration: none; }
+    /* Grundlayout */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow-x: hidden;
+      cursor: none; /* Für coolen eigenen Mauszeiger-Effekt */
+    }
+
+    /* Logo */
+    img {
+      max-width: 200px;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s;
+    }
+
+    img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Überschriften */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px #ec9422;
+      transition: text-shadow 0.3s;
+    }
+
+    h1:hover {
+      text-shadow: 0 0 20px #ffb24d, 0 0 30px #ec9422;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 8px #ec9422;
+      transition: text-shadow 0.3s;
+    }
+
+    h2:hover {
+      text-shadow: 0 0 18px #ffb24d, 0 0 25px #ec9422;
+    }
+
+    /* Text */
+    p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    p:hover {
+      color: #ffb24d;
+      text-shadow: 0 0 10px #ffb24d;
+    }
+
+    /* Sticky Footer Button */
+    .footer-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ec9422;
+      color: #111;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+      z-index: 100;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .footer-btn:hover {
+      background: #ffb24d;
+      transform: scale(1.05);
+    }
+
+    /* Mauszeiger Glow */
+    .cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(236, 148, 34, 0.7);
+      pointer-events: none;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+      z-index: 9999;
+    }
   </style>
 </head>
 <body>
-    <img src="bilder/Logo.png" alt="LAUFRUHE Logo" style="max-width:200px; display:block; margin-bottom:1rem;">
 
+  <div class="cursor"></div>
+
+  <img src="bilder/Logo.png" alt="LAUFRUHE Logo">
 
   <h1>Impressum</h1>
   <h2>LAUFRUHE - Rund läufts besser</h2>
-   
-    <p>Lukas Heidler </p> 
-    <p>Stadtgraben 7</p>
-    <p>92339 Beilngries</p>
-    <p>Deutschland</p>
   
-  <p><a class="footer-btn" href="Laufruhe_Website.html">Zurück zur Startseite</a></p>
+  <p>Lukas Heidler</p> 
+  <p>Stadtgraben 7</p>
+  <p>92339 Beilngries</p>
+  <p>Deutschland</p>
+  
+  <!-- Zurück zur Startseite -->
+  <a class="footer-btn" href="Laufruhe_Website.html">Zurück zur Startseite</a>
+
+  <script>
+    // Eigenen kleinen Mauszeiger
+    const cursor = document.querySelector('.cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Cursor vergrößern bei Hover auf Links
+    const links = document.querySelectorAll('a, h1, h2, p');
+    links.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '40px';
+        cursor.style.height = '40px';
+        cursor.style.background = 'rgba(255, 178, 77, 0.7)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        cursor.style.background = 'rgba(236, 148, 34, 0.7)';
+      });
+    });
+  </script>
 </body>
 </html>
+
