@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAUFRUHE</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    width: 100vw;
+    background: #000;
+    color: #ffffff;
+  }
+
+  /* Burger Header */
+  header {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background: rgb(255, 255, 255);
+    padding:1rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+  }
+
+  .logo {
+    font-weight:bold;
+    color:#000000;
+  }
+
+  /* Burger-Button */
+  #menu-toggle {
+    width: 40px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-right: 50px;
+  }
+
+  #menu-toggle div {
+    width: 100%;
+    height: 6px;
+    background: #000000;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  #menu-toggle.open div:nth-child(1) {
+    transform: rotate(0deg) translate(6px, 6px);
+  }
+  #menu-toggle.open div:nth-child(2) { opacity: 0; }
+  #menu-toggle.open div:nth-child(3) {
+    transform: rotate(-0deg) translate(6px, -6px);
+  }
+
+  /* Menü */
+  nav {
+    position: fixed;
+    top: 60px;
+    right: 2rem;
+    background: #111;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+  }
+
+  nav.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  nav a {
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:1.2rem;
+  }
+
+  nav a:hover { color:#e69514; }
+
+  /* Sections */
+  section {
+    min-height: 100vh;
+    padding: 5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1.5s ease;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Hero */
+  #hero {
+    background: url('bilder/Logo.png') no-repeat center/cover;
+    
+    position: relative;
+   
+  }
+  #hero::after {
+    content: "";
+    height: max-content;
+    position: absolute;
+    inset: 0;
+    background: rgb(255, 255, 255);
+  }
+  #hero .content {
+    position: relative;
+    z-index: 1;
+    background-color: #ffffff;
+  }
+  #hero h1 { font-size: 5rem; margin-bottom: 1rem; background-color: #ffffff;} 
+  #hero p { font-size: 1.5rem; background-color: #ffffff;}
+
+  /* Projektvorstellung */
+  #projekt img {
+    width: 400px;
+    max-width: 100%;
+    border-radius: 12px;
+    margin-top: 2rem;
+    transition: transform 0.7s ease-in-out;
+  }
+  #projekt img:hover {
+    transform: scale(1.5);
+  }
+
+  /* Team Gruppenfoto */
+  #team {
+    opacity: 0;
+    transform: rotateX(60deg);
+    transform-origin: top;
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  #team.visible {
+    opacity: 1;
+    transform: rotateX(0);
+  }
+
+  /* Mitglieder */
+  #mitglieder {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px;
+    justify-content: center;
+    align-items: start;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .mitglied {
+  background: #222;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: box-shadow 1.5s ease-in-out, transform 1.2s ease-in-out;
+  overflow: hidden;
+}
+
+/* Bild bleibt ruhig, aber etwas heller */
+.mitglied img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  transition: filter 1.5s ease-in-out;
+}
+
+.mitglied:hover img {
+  filter: brightness(1.2);
+}
+
+/* Sanfter Glow um die ganze Box */
+.mitglied:hover {
+  transform: translateY(-5px);
+}
+
+/* 🔸 Individuelle Leuchtfarben pro Person */
+#Lukas:hover {
+  box-shadow: 0 0 30px 8px rgba(252, 162, 7, 0.7);
+}
+
+#Pascal:hover {
+  box-shadow: 0 0 30px 8px rgba(252, 162, 7, 0.7);
+}
+
+#Andi:hover {
+  box-shadow: 0 0 30px 8px rgba(255, 215, 0, 0.7);
+}
+
+#Hannes:hover {
+  box-shadow: 0 0 30px 8px rgba(252, 162, 7, 0.7);
+}
+
+ 
+  .mitglied img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+  }
+  .mitglied h3 { margin: 0.5rem 0; color: #ec9422; }
+
+  /* Kontakt */
+  #kontakt {
+    background: #1e1e1e;
+    padding: 5rem 2rem;
+  }
+  .kontakt-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .kontakt img {
+    width: 400px;
+    max-width: 100%;
+    border-radius: 12px;
+    margin-top: 2rem;
+    transition: transform 0.7s ease-in-out;
+
+  }
+  .kontakt img:hover {
+    transform: scale(1.5);
+
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: double;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  .btn:hover { transform: translateY(-5px); }
+  .btn.insta { background: #7d6546; color: rgb(199, 199, 199); }
+  .btn.mail { background: #875154; color: rgb(185, 185, 185); }
+
+  .team-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+    transition: 0.7s ease-in-out;
+  }
+  .team-container:hover {transform:scale3d(1.20 ,1.20 ,1.20);}
+  .team-container img {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .team-text { max-width: 500px; text-align: center; }
+
+  .footer-buttons {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 2000;
+  }
+  .footer-btn {
+    background: #222;
+    color: #ec9422;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    transition: transform 0.2s, background 0.3s;
+  }
+  .footer-btn:hover { background: #ec9422; color: #111; transform: translateY(-3px); }
+
+  #galerie {
+    min-height: auto;
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  .slideshow-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .slide {
+    flex: 1 1 300px;
+    max-width: 300px;
+    position: relative;
+    overflow: hidden;
+    height: auto;
+  }
+  .slide img {
+    width: 100%;
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: relative;
+  }
+  /* Glitzer-Mauszeiger */
+.spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #fff 0%, #ec9422 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sparkle 0.8s forwards;
+}
+
+@keyframes sparkle {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(calc(var(--dx) * 1px), calc(var(--dy) * 1px)) scale(0); }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">LAUFRUHE</div>
+  <div id="menu-toggle">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <nav id="nav-menu">
+    <a href="#hero">Start</a>
+    <a href="#projekt">Projekt</a>
+    <a href="#team">Team</a>
+    <a href="#mitglieder">Mitglieder</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#werbefilm">Film</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="content">
+    <h1></h1>
+    <p></p>
+    <img src="bilder/Logo.png" alt="Logo">
+  </div>
+</section>
+
+<!-- Projektvorstellung -->
+<section id="projekt">
+  <h1>Was macht <span style="color: #e69514; font-weight: bold;"> Laufruhe?? <span></h1>
+  
+  <p>Das <span style="color: #ec9422; font-weight: bold;">Zentrieren von Fahrradfelgen ist oft mühsam und zeitaufwendig</span>. Genau hier setzt unser Projekt Laufruhe an: Wir entwickeln einen <span style="color: #ec9422; font-weight: bold;">halbautomatischen Zentrierständer</span>, der den Seitenschlag per Sensor erkennt, das Rad automatisch in Position bringt und die Auswertung übersichtlich am Display darstellt.
+    Die Mechanik, Elektrik, Software und sogar erste KI-Ansätze stammen komplett aus unserer Hand. <span style="color: #ec9422; font-weight: bold;">Während Sensoren und Motor für Präzision sorgen</span>, bleibt das eigentliche Nachziehen der Speichen ein Handwerk – nur eben deutlich einfacher, schneller und smarter.
+    Unser Ziel: Ein innovatives Werkzeug, das das Zentrieren von Laufrädern revolutioniert – entwickelt, gebaut und getestet von unserem Team. 
+  </p>
+  
+  <img src="bilder/Zeichnung.jpg" alt="Zeichnung">
+</section>
+
+<!-- Team -->
+<section id="team">
+  <h2>Unser Team</h2>
+  <div class="team-container">
+    <img src="bilder/Gruppenbild.png" alt="Gruppenfoto">
+    <div class="team-text">
+      <p>Wir sind <span style="color: #ec9422; font-weight: bold;">vier technikbegeisterte angehende Mechatroniktechniker</span> – und gemeinsam haben wir Laufruhe ins Leben gerufen.
+        Jeder von uns bringt seine eigenen Stärken ein: von Mechanik über Hardware und Software bis hin zu Design und Projektmanagement.</p> 
+        <p> Was uns verbindet? <span style="color: #ec9422; font-weight: bold;">Der Spaß am Tüfteln</span>, die Leidenschaft fürs Fahrrad und der Anspruch, clevere Techniklösungen zu entwickeln, die den Alltag einfacher machen. </p>
+    </div>
+  </div>
+</section>
+
+<!-- Mitglieder -->
+<section id="mitglieder">
+  <div class="mitglied" id="Lukas">
+    <img src="bilder/Lukas.jpg" alt="Mitglied 1">
+    <h3>Lukas Heidler</h3>
+    <p>Marketing & Design</p>
+  </div>
+  
+  <div class="mitglied" id="Andi">
+    <img src="bilder/Andi.jpg" alt="Mitglied 2">
+    <h3>Andreas Wühr</h3>
+    <p>Mechanik & Konstruktion</p>
+  </div>
+  
+  <div class="mitglied" id="Hannes">
+    <img src="bilder/Hannes.jpg" alt="Mitglied 3">
+    <h3>Hannes Schmitt</h3>
+    <p>Elektrik & Dokumentation</p>
+  </div>
+  
+  <div class="mitglied" id="Pascal">
+    <img src="bilder/Pascal.jpg" alt="Mitglied 4">
+    <h3>Pascal Sohr</h3>
+    <p>Dokumentation & Elektronik</p>
+  </div>
+  
+</section>
+<!--Galerie-->
+<section id="galerie">
+  <h2>Aktuelle Bilder</h2>
+  <div class="slideshow-container">
+    <div class="slide"><img src="bilder/Bild1.png" alt="Bild 1"></div>
+    <div class="slide"><img src="bilder/Bild2.JPG" alt="Bild 2"></div>
+    <div class="slide"><img src="bilder/Bild3.JPG" alt="Bild 3"></div>
+  </div>
+</section>
+<!--Videovorstellung-->
+
+<!-- Hauptvideo -->
+<!-- Hauptvideo -->
+<section id="werbefilm" style="text-align:center; margin:2rem 0;">
+  <h2>Unser Werbefilm</h2>
+  <iframe width="1080" height="720" style="max-width:100%; max-height:100vh; border:2px solid #fff; border-radius:10px;"
+    src="https://www.youtube.com/embed/DEIN_VIDEO_ID" 
+    title="YouTube video player" frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</section>
+
+
+
+
+<!-- Kontakt -->
+<section id="kontakt" style="
+     position: relative;
+  height: 80vh;
+  background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0)), 
+              url('bilder/Telefon.JPG') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+">
+  <h2>Du willst mehr über unser Projekt erfahren oder uns erreichen?</h2>
+  
+  <div class="kontakt-links" style="margin-top: 1rem;">
+    <a href="https://www.instagram.com/laufruhe_pa/" target="_blank" style="
+        padding: 0.8rem 1.5rem;
+        margin: 0.5rem;
+        background:#E1306C;
+        color:#fff;
+        text-decoration:none;
+        border-radius:5px;
+    ">Instagram</a>
+    
+    <a href="mailto:laufruhe.pa@outlook.de" style="
+        padding: 0.8rem 1.5rem;
+        margin: 0.5rem;
+        background:#0072C6;
+        color:#fff;
+        text-decoration:none;
+        border-radius:5px;
+    ">E-Mail</a>
+  </div>
+</section>
+
+
+<div class="footer-buttons">
+  <a href="impressum.html" target="_self" class="footer-btn">Impressum</a>
+  <a href="datenschutz.html" target="_self" class="footer-btn">Datenschutz</a>
+</div>
+
+<script>
+  // Burger Menü
+  const toggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('nav-menu');
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    nav.classList.toggle('show');
+  });
+
+  nav.querySelectorAll('a').forEach(link =>
+    link.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      nav.classList.remove('show');
+    })
+  );
+
+  // Fade-In beim Scrollen
+  const sections = document.querySelectorAll("section");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.2 });
+  sections.forEach(sec => observer.observe(sec));
+
+  // Slideshow
+  const slides = document.querySelectorAll('.slide img');
+  let currentIndex = 0;
+  function showSlides() {
+    slides.forEach((img, i) => img.style.opacity = (i === currentIndex) ? 1 : 0);
+    currentIndex = (currentIndex + 1) % slides.length;
+  }
+  setInterval(showSlides, 3000);
+  showSlides();
+
+    // Easter Egg für Lukas
+    const lukasImg = document.getElementById("Lukas");
+  let clickCount = 0;
+  let timer;
+
+  lukasImg.addEventListener("click", () => {
+    clickCount++;
+
+    if (clickCount === 2) {
+      // Original merken
+      lukasImg.dataset.original = lukasImg.src;
+      // Easter-Egg-Bild setzen
+      lukasImg.src = "bilder/Lukasturn.jpg"; // <- dein alternatives Bild
+
+      // nach 5s zurück
+      setTimeout(() => {
+        lukasImg.src = lukasImg.dataset.original;
+      }, 5000);
+
+      clickCount = 0; // zurücksetzen
+    }
+
+    // Timeout falls Klick zu langsam
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      clickCount = 0;
+    }, 800);
+  });
+
+const pascalimg = document.getElementById("Pascal")
+  let clickCount1 = 0;
+  let timer1;
+    pascalimg.addEventListener("click", ()=>{clickCount++;
+      if (clickCount===2){
+        pascalimg.dataset.original = pascalimg.src;
+
+        pascalimg.src = "bilder/Pascalturn.jpg";
+
+        setTimeout (()=> {
+          pascalimg.src = pascalimg.dataset.original;
+        },5000);
+      
+      clickCount = 0;
+        
+      }
+      clearTimeout(timer);
+      timer = setTimeout(()=>{clickCount =0;},800);
+       
+    
+    
+    
+    
+    
+    })
+
+
+
+
+// Glitzer-Mauszeiger
+document.addEventListener('mousemove', e => {
+  const spark = document.createElement('div');
+  spark.classList.add('spark');
+
+  // Zufällige Richtung
+  const dx = (Math.random() - 0.5) * 50;
+  const dy = (Math.random() - 0.5) * 50;
+  spark.style.setProperty('--dx', dx);
+  spark.style.setProperty('--dy', dy);
+
+  spark.style.left = e.pageX + 'px';
+  spark.style.top = e.pageY + 'px';
+  document.body.appendChild(spark);
+
+  // Nach der Animation entfernen
+  setTimeout(() => spark.remove(), 800);
+});
+
+</script>
+
+</body>
+</html>
