@@ -342,6 +342,157 @@
   0% { opacity: 1; transform: translate(0, 0) scale(1); }
   100% { opacity: 0; transform: translate(calc(var(--dx) * 1px), calc(var(--dy) * 1px)) scale(0); }
 }
+/* ========================================= */
+/* 📱 RESPONSIVE DESIGN ANPASSUNGEN */
+/* ========================================= */
+
+@media (max-width: 1024px) {
+  header {
+    padding: 0.8rem 1rem;
+  }
+
+  #menu-toggle {
+    margin-right: 1rem;
+    width: 30px;
+    height: 22px;
+  }
+
+  nav {
+    right: 1rem;
+    top: 55px;
+  }
+
+  section {
+    padding: 4rem 1rem;
+  }
+
+  #hero h1 {
+    font-size: 3rem;
+  }
+
+  #hero p {
+    font-size: 1.2rem;
+  }
+
+  .team-container {
+    flex-direction: column;
+  }
+
+  iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .mitglied img {
+    max-width: 250px;
+  }
+
+  #projekt img,
+  .kontakt img {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  #hero h1 {
+    font-size: 2.2rem;
+  }
+
+  #hero p {
+    font-size: 1rem;
+  }
+
+  .team-text {
+    max-width: 90%;
+    font-size: 0.95rem;
+  }
+
+  .mitglied {
+    padding: 1rem;
+  }
+
+  .mitglied h3 {
+    font-size: 1.1rem;
+  }
+
+  nav a {
+    font-size: 1rem;
+  }
+
+  .footer-buttons {
+    flex-direction: column;
+    right: 5px;
+    bottom: 5px;
+    gap: 5px;
+  }
+
+  #projekt p {
+    font-size: 0.95rem;
+    text-align: justify;
+  }
+
+  #galerie .slide {
+    flex: 1 1 100%;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    flex-direction: row;
+  }
+
+  #menu-toggle {
+    width: 25px;
+    height: 18px;
+  }
+
+  nav {
+    width: 70%;
+    right: 1rem;
+  }
+
+  nav a {
+    font-size: 0.9rem;
+  }
+
+  #hero {
+    background-position: center;
+  }
+
+  #hero h1 {
+    font-size: 1.8rem;
+  }
+
+  #hero p {
+    font-size: 0.9rem;
+  }
+
+  .mitglied img {
+    max-width: 200px;
+  }
+
+  .team-container img {
+    max-width: 90%;
+  }
+
+  #projekt img {
+    max-width: 90%;
+  }
+
+  iframe {
+    width: 100%;
+    height: auto;
+  }
+
+  .kontakt-links a {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
 
 </style>
 </head>
