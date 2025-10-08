@@ -491,6 +491,59 @@
     font-size: 1rem;
     padding: 0.6rem 1rem;
   }
+  /* ========================================= */
+/* HERO-BEREICH AN HANDYDISPLAY ANPASSEN */
+/* ========================================= */
+
+@media (max-width: 768px) {
+  #hero {
+    background: url('bilder/Logo.png') no-repeat center center/contain;
+    background-color: #fff; /* Weißer Hintergrund falls das Bild durchsichtig ist */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #hero .content {
+    background: rgba(255, 255, 255, 0.8); /* leicht transparent weißer Hintergrund */
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  #hero img {
+    width: 80%;
+    max-width: 300px;
+    height: auto;
+  }
+
+  #hero h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  #hero p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #hero img {
+    width: 90%;
+    max-width: 250px;
+  }
+
+  #hero h1 {
+    font-size: 1.6rem;
+  }
+
+  #hero p {
+    font-size: 0.9rem;
+  }
+}
+
 }
 
 
