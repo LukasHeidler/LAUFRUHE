@@ -853,6 +853,9 @@ document.addEventListener('mousemove', e => {
   // Nach der Animation entfernen
   setTimeout(() => spark.remove(), 800);
 });
+document.querySelector('.arrow').addEventListener('click', () => {
+  document.querySelector('#projekt').scrollIntoView({ behavior: 'smooth' });
+});
 
 </script>
 
