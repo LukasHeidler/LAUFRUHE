@@ -587,6 +587,40 @@
 }
 
 }
+/* Partner-Sektion */
+#partner {
+  background: #fff;
+  color: #000;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+#partner h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+}
+
+#partner div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 40px;
+  justify-items: center;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+#partner img {
+  max-width: 180px;
+  height: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#partner img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
 
 
 </style>
@@ -608,6 +642,7 @@
     <a href="#galerie">Galerie</a>
     <a href="#werbefilm">Film</a>
     <a href="#kontakt">Kontakt</a>
+    <a href="partner">Partner</a>
   </nav>
 </header>
 
@@ -694,6 +729,33 @@
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen>
   </iframe>
+</section>
+
+<!-- Partner -->
+<section id="partner" style="background:#fff; color:#000; padding:5rem 2rem; text-align:center;">
+  <h2 style="font-size:2rem; font-weight:bold; margin-bottom:3rem;">
+    Ein riesen Dank an unsere Partner
+  </h2>
+
+  <div style="
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap:40px;
+    justify-items:center;
+    align-items:center;
+    max-width:1000px;
+    margin:0 auto;
+  ">
+    <!-- Erste Reihe (deine echten Logos) -->
+    <img src="bilder/Partner1.jpg" alt="Partner 1" style="max-width:180px; height:auto;">
+    <img src="bilder/partner2.pdf" alt="Partner 2" style="max-width:180px; height:auto;">
+    <img src="bilder/Partner3.jpg" alt="Partner 3" style="max-width:180px; height:auto;">
+
+    <!-- Zweite Reihe (Platzhalter für zukünftige Partner) -->
+    <img src="bilder/platzhalter1.png" alt="Partner folgt" style="max-width:180px; height:auto; opacity:0.3;">
+    <img src="bilder/platzhalter2.png" alt="Partner folgt" style="max-width:180px; height:auto; opacity:0.3;">
+    <img src="bilder/platzhalter3.png" alt="Partner folgt" style="max-width:180px; height:auto; opacity:0.3;">
+  </div>
 </section>
 
 
