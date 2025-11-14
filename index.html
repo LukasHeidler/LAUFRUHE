@@ -626,6 +626,7 @@
 </style>
 </head>
 <body>
+  <!--<div style="height:80px;"></div>  Platzhalter für fixierten Header -->
 
 <header>
   <div class="logo">LAUFRUHE</div>
@@ -933,6 +934,45 @@ document.querySelector('.arrow').addEventListener('click', () => {
   document.querySelector('#projekt').scrollIntoView({ behavior: 'smooth' });
 });
 
+</script>
+<!-- Cookie-Banner -->
+<div id="cookie-banner" style="
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: #222;
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  display: none;
+  z-index: 3000;
+  font-size: 0.9rem;
+  text-align: center;
+">
+  Wir verwenden Cookies, um die Funktionalität der Website sicherzustellen.
+  <br><br>
+  <button id="cookie-accept" style="
+    background:#ec9422;
+    color:#000;
+    border:none;
+    padding:0.6rem 1.2rem;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+  ">OK</button>
+</div>
+
+<script>
+  if (!localStorage.getItem("cookiesAccepted")) {
+    document.getElementById("cookie-banner").style.display = "block";
+  }
+
+  document.getElementById("cookie-accept").addEventListener("click", () => {
+    localStorage.setItem("cookiesAccepted", "yes");
+    document.getElementById("cookie-banner").style.display = "none";
+  });
 </script>
 
 </body>
